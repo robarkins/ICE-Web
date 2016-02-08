@@ -19,7 +19,7 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
         .state('index.main', {
             url: "/main",
             templateUrl: "app/main/main.html",
-            data: { pageTitle: 'Example view' }
+            data: { requiresLogin: true, pageTitle: 'Example view' }
         })
         .state('index.minor', {
             url: "/minor",
@@ -33,7 +33,8 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
   .config(function(authProvider) {
     authProvider.init({
         domain: 'rarkins.eu.auth0.com',
-        clientID: 'LBYoocwsU8PTCmPbBkjkE6k55L3nAe8X'
+        clientID: 'LBYoocwsU8PTCmPbBkjkE6k55L3nAe8X',
+		loginState: 'login'
     });
   })
   
