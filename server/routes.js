@@ -1,28 +1,32 @@
 var express = require('express');
+var passport = require('passport');
 var config = require('./config/database'); // get the db config file
 var User = require('./models/user');
 var jwt = require('jwt-simple');
 var apiRoutes = express.Router();
 
-apiRoutes.get('/', function(request, response) {
-  response.render('src/index');
+apiRoutes.get('/', function(req, res) {
+  res.render('src/index');
 });
 
-apiRoutes.post('/authenticate', function(request, response) {
+apiRoutes.post('/authenticate', function(req, res) {
 	User.findOne({
-		email: request.body.email
+		email: req.body.email
 	}, function(err, user) {
 		if (err) throw err;
 		
 		if (!user) {
-			response.send({success: false, msg: 'Authentication failed! Invalid username or password.'});
+			res.status(401).send({success: false, msg: 'Authentication failed! Invalid username or password.'});
 		} else {
-			user.comparePassword(request.body.password, function(err, isMatch) {
+			user.comparePassword(req.body.password, function(err, isMatch) {
 				if (isMatch && !err) {
+					var claim = {
+						
+					};
 					var token = jwt.encode(user, config.secret);
-					response.json({success: true, msg: 'JWT ' + token});
+					res.status(200).json({success: true, msg: 'JWT ' + token});
 				} else {
-					response.send({success: false, msg: 'Authentication failed! Invalid username or password'});
+					res.status(401).send({success: false, msg: 'Authentication failed! Invalid username or password'});
 				}
 			});
 		}
@@ -45,6 +49,11 @@ apiRoutes.post('/register', function(request, response) {
 			response.json({success: true, msg: 'Successfully created new user.'});
 		});
 	}
+});
+
+apiRoutes.get('/memberinfo', passport.authenticate('jwt', {session: false}), function(req, res) {
+	console.log(req.headers);
+	res.status(200).json({success: true, msg: 'Authenticated!'});
 });
 
 module.exports = apiRoutes;

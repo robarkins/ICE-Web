@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 
-    'auth0', 'angular-storage', 'angular-jwt' ])
+    'angular-jwt', 'angular-ladda' ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         
         .state('login', {
             url: '/login',
             templateUrl: 'app/login/login.html',
-            data: { pageTitle: 'Login' }
+            data: { pageTitle: 'Login', specialClass: 'gray-bg' }
         })
         
         .state('index', {
@@ -28,17 +28,4 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
         });
 
     $urlRouterProvider.otherwise('/login');
-  })
-  
-  .config(function(authProvider) {
-    authProvider.init({
-        domain: 'rarkins.eu.auth0.com',
-        clientID: 'LBYoocwsU8PTCmPbBkjkE6k55L3nAe8X',
-		loginState: 'login'
-    });
-  })
-  
-  .run(function(auth) {
-      auth.hookEvents();
-  })
-;
+  });
