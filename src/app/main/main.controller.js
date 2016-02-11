@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('inspinia')
+angular.module('iceWeb')
   .controller('MainCtrl', function ($scope) {
 
     this.userName = 'Example user';

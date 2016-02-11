@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('inspinia')
+angular.module('iceWeb')
 
     .controller('LoginCtrl', ['$timeout', function($timeout) {
         var self = this;

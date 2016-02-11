@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 
+angular.module('iceWeb', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 
     'angular-jwt', 'angular-ladda' ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -28,4 +28,8 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
         });
 
     $urlRouterProvider.otherwise('/login');
+  })
+  
+  .run(function($rootScope, $state){
+	$rootScope.$state = $state;
   });
