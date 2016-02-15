@@ -2,7 +2,7 @@
 
 angular.module('iceWeb')
 
-    .controller('LoginCtrl', ['$timeout', 'AuthService', '$state', function($timeout, AuthService, $state) {
+    .controller('LoginCtrl', ['AuthService', '$state', 'SweetAlert', function(AuthService, $state, SweetAlert) {
         var self = this;
 		
 		self.user = {
@@ -16,8 +16,8 @@ angular.module('iceWeb')
 				$state.go('index.main');
 				self.loading = false;
 			}, function(errMsg) {
-				console.log('Login failed - ' + errMsg);
 				self.loading = false;
+				SweetAlert.swal('Sorry', 'The username or password you entered is invalid. Please try again.', 'error');
 			});
 		};
     }]);

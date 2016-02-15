@@ -1,7 +1,7 @@
 angular.module('iceWeb')
 
     .service('AuthService', ['$q', '$http', 'API_ENDPOINT', function($q, $http, API_ENDPOINT) {
-        var LOCAL_TOKEN_KEY = 'tokenKey';
+        var LOCAL_TOKEN_KEY = 'token-key';
         var isAuthenticated = false;
         var authToken;   
 		
@@ -35,7 +35,7 @@ angular.module('iceWeb')
 			return $q(function(resolve, reject) {
 				$http.post(API_ENDPOINT.url + '/authenticate', user).then(function(result) {
 					if (result.data.success) {
-						storeUserCredentials(result.data.token);
+						storeUserCredentials(result.data.msg);
 						resolve(result.data.msg);
 					} else {
 						reject(result.data.msg);
@@ -43,10 +43,18 @@ angular.module('iceWeb')
 				});
 			});
 		};
+		
+		loadUserCredentials();
+		
+		var logout = function() {
+			destroyUserCredentials();
+		};
 
 		
 		return {
-			login: login
+			login: login,
+			logout: logout,
+			isAuthenticated: function() { return isAuthenticated; }
 		};
 		
     }])
@@ -60,8 +68,4 @@ angular.module('iceWeb')
 				return $q.reject(response);
 			}
 		};
-	}])
-	
-	.config(function($httpProvider) {
-		$httpProvider.interceptors.push('AuthInterceptor');
-	});
+	}]);

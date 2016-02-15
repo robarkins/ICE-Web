@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('iceWeb', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 
-    'angular-jwt', 'angular-ladda', 'ngStorage' ])
+    'angular-jwt', 'angular-ladda', 'ngStorage', 'oitozero.ngSweetAlert' ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         
@@ -30,6 +30,19 @@ angular.module('iceWeb', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ng
     $urlRouterProvider.otherwise('/login');
   })
   
-  .run(function($rootScope, $state){
+  .config(function($httpProvider) {
+		$httpProvider.interceptors.push('AuthInterceptor');
+  })
+  
+  .run(function($rootScope, $state, AuthService, AUTH_EVENTS){
 	$rootScope.$state = $state;
+	
+	$rootScope.$on('$stateChangeStart', function(event, next, nextParams, fromState) {
+		if (!AuthService.isAuthenticated()) {
+			if (next.name !== 'login') {
+				event.preventDefault();
+				$state.go('login');
+			}
+		}
+	});
   });
