@@ -12,16 +12,12 @@ angular.module('iceWeb')
 		
 		self.login = function() {
 			self.loading = true;
-			try {
-				
-				AuthService.login(self.user).then(function(msg) {
-					//$state.go('index.main');
-				}, function(errMsg) {
-					console.log('Failed - ' + errMsg);
-				});
-			}
-			finally {
+			AuthService.login(self.user).then(function(msg) {
+				$state.go('index.main');
 				self.loading = false;
-			}
+			}, function(errMsg) {
+				console.log('Failed - ' + errMsg);
+				self.loading = false;
+			});
 		};
     }]);
