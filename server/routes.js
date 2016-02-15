@@ -16,7 +16,8 @@ apiRoutes.post('/authenticate', function(req, res) {
 		if (err) throw err;
 		
 		if (!user) {
-			res.status(401).send({success: false, msg: 'Authentication failed! Invalid username or password.'});
+			//res.status(403).send({success: false, msg: 'Authentication failed! Invalid username or password.'});
+			res.json({success: false, msg: 'Invalid username or password!'});
 		} else {
 			user.comparePassword(req.body.password, function(err, isMatch) {
 				if (isMatch && !err) {
@@ -26,7 +27,8 @@ apiRoutes.post('/authenticate', function(req, res) {
 					var token = jwt.encode(user, config.secret);
 					res.status(200).json({success: true, msg: 'JWT ' + token});
 				} else {
-					res.status(401).send({success: false, msg: 'Authentication failed! Invalid username or password'});
+					//res.status(403).send({success: false, msg: 'Authentication failed! Invalid username or password'});
+					res.json({success: false, msg: 'Invalid username or password!'});
 				}
 			});
 		}

@@ -16,7 +16,7 @@ angular.module('iceWeb')
 				$state.go('index.main');
 				self.loading = false;
 			}, function(errMsg) {
-				console.log('Failed - ' + errMsg);
+				console.log('Login failed - ' + errMsg);
 				self.loading = false;
 			});
 		};
