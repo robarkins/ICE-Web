@@ -1,15 +1,18 @@
 var express = require('express');
 var app = express();
+var cors = require('cors');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var config = require('./server/config/database');
 var User = require('./server/models/user');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5000;
 var jwt = require('jwt-simple');
 var apiRoutes = require('./server/routes');
 
+
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

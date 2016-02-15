@@ -5,5 +5,6 @@ angular.module('iceWeb')
     })
     
     .constant('API_ENDPOINT', {
-        url: 'http://localhost:3000/api'
+        //url: 'http://localhost:5000/api',
+		url: 'https://ice-web.herokuapp.com/api'
     });
