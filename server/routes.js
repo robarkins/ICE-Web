@@ -2,12 +2,9 @@ var express = require('express');
 var passport = require('passport');
 var config = require('./config/database'); // get the db config file
 var User = require('./models/user');
+var Supplier = require('./models/supplier');
 var jwt = require('jwt-simple');
 var apiRoutes = express.Router();
-
-apiRoutes.get('/', function(req, res) {
-  res.render('src/index');
-});
 
 apiRoutes.post('/authenticate', function(req, res) {
 	User.findOne({
@@ -22,10 +19,12 @@ apiRoutes.post('/authenticate', function(req, res) {
 			user.comparePassword(req.body.password, function(err, isMatch) {
 				if (isMatch && !err) {
 					var claim = {
-						
+						iss: 'rarkins',
+						iat: Math.round(+new Date()/1000),
+						uid: user._id
 					};
-					var token = jwt.encode(user, config.secret);
-					res.status(200).json({success: true, msg: 'JWT ' + token});
+					var token = jwt.encode(claim, config.secret);
+					res.status(200).json({success: true, msg: 'Bearer ' + token});
 				} else {
 					//res.status(403).send({success: false, msg: 'Authentication failed! Invalid username or password'});
 					res.json({success: false, msg: 'Invalid username or password!'});
@@ -56,6 +55,13 @@ apiRoutes.post('/register', function(request, response) {
 apiRoutes.get('/memberinfo', passport.authenticate('jwt', {session: false}), function(req, res) {
 	console.log(req.headers);
 	res.status(200).json({success: true, msg: 'Authenticated!'});
+});
+
+apiRoutes.get('/suppliers', function(req, res) {
+	Supplier.find({}, function(err, suppliers) {
+		if (err) throw err;
+		console.log(suppliers);
+	});
 });
 
 module.exports = apiRoutes;

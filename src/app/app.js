@@ -10,8 +10,18 @@ angular.module('iceWeb', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ng
             templateUrl: 'app/login/login.html',
             data: { pageTitle: 'Login', specialClass: 'gray-bg' }
         })
+		.state('app',  {
+			abstract: true,
+			url: '/app',
+			templateUrl: 'components/common/content.html'
+		})
+		.state('app.suppliers', {
+			url: '/suppliers',
+			templateUrl: 'app/suppliers/suppliers.html',
+			data: { pageTitle: 'Suppliers' }
+		});
         
-        .state('index', {
+        /*.state('index', {
             abstract: true,
             url: "/index",
             templateUrl: "components/common/content.html"
@@ -25,9 +35,9 @@ angular.module('iceWeb', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ng
             url: "/minor",
             templateUrl: "app/minor/minor.html",
             data: { pageTitle: 'Example view' }
-        });
+        });*/
 
-    $urlRouterProvider.otherwise('/login');
+		$urlRouterProvider.otherwise('app/suppliers');
   })
   
   .config(function($httpProvider) {
@@ -38,11 +48,11 @@ angular.module('iceWeb', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ng
 	$rootScope.$state = $state;
 	
 	$rootScope.$on('$stateChangeStart', function(event, next, nextParams, fromState) {
-		if (!AuthService.isAuthenticated()) {
+		/*if (!AuthService.isAuthenticated()) {
 			if (next.name !== 'login') {
 				event.preventDefault();
 				$state.go('login');
 			}
-		}
+		}*/
 	});
   });
