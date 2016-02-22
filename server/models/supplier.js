@@ -15,4 +15,4 @@ var supplierSchema = new Schema({
 
 
 
-module.exports = mongoose.model('Supplier', UserSchema);
+module.exports = mongoose.model('Supplier', supplierSchema);

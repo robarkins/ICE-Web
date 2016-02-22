@@ -1,30 +1,13 @@
 angular.module('iceWeb')
 
-	.factory('SupplierService', [function() {
+	.factory('SupplierService', ['$http', 'API_ENDPOINT', function($http, API_ENDPOINT) {
 		return {
-			getSuppliers: function() {
-				return [
-					{
-						firstName: 'Robert',
-						surname: 'Arkins',
-						address: {
-							line1: '23 Kennington Close',
-							line2: 'Templeogue',
-							line3: 'Dublin 6W',
-							line4: 'Ireland'
-						}
-					},
-					{
-						firstName: 'Siga',
-						surname: 'Jasiute',
-						address: {
-							line1: 'Apt 13',
-							line2: '97 Reuben Street',
-							line3: 'Rialto',
-							line4: 'Dublin 8'
-						}
-					}
-				];
+			get: function() {
+                return $http.get(API_ENDPOINT.url + '/suppliers').then(function(res) {
+                    return res.data;
+                }, function(err) {
+                    console.log('error');
+                });
 			}
 		};
 	}]);

@@ -52,16 +52,16 @@ apiRoutes.post('/register', function(request, response) {
 	}
 });
 
-apiRoutes.get('/memberinfo', passport.authenticate('jwt', {session: false}), function(req, res) {
-	console.log(req.headers);
-	res.status(200).json({success: true, msg: 'Authenticated!'});
-});
-
 apiRoutes.get('/suppliers', function(req, res) {
 	Supplier.find({}, function(err, suppliers) {
 		if (err) throw err;
-		console.log(suppliers);
+		res.send(suppliers);
 	});
+});
+
+apiRoutes.get('/memberinfo', passport.authenticate('jwt', {session: false}), function(req, res) {
+	console.log(req.headers);
+	res.status(200).json({success: true, msg: 'Authenticated!'});
 });
 
 module.exports = apiRoutes;
