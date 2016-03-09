@@ -21,6 +21,9 @@
     "angular-ladda": "^0.3.1",
     "ngstorage": "^0.3.10",
     "ngSweetAlert": "angular-sweetalert#^1.1.0",
+    "datatables-buttons": "^1.1.2",
+    "pdfmake": "^0.1.20",
+    "jszip": "^2.5.0",
     "angular-datatables": "^0.5.3"
   },
   "devDependencies": {
@@ -35,6 +38,13 @@
       "main": [
         "dist/ladda-themeless.min.css",
         "dist/ladda.min.js"
+      ]
+    },
+    "angular-datatables": {
+      "main": [
+        "datatables/media/js/jquery.datatables.min.js",
+        "dist/angular-datatables.min.js",
+        "dist/plugins/buttons/angular-datatables.buttons.min.js"
       ]
     }
   }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('iceWeb', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 
-    'angular-jwt', 'angular-ladda', 'ngStorage', 'oitozero.ngSweetAlert' ])
+    'angular-jwt', 'angular-ladda', 'ngStorage', 'oitozero.ngSweetAlert', 'datatables', 'datatables.buttons' ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         
